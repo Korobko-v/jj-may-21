@@ -18,4 +18,11 @@ public class LogicTest {
     public void testMeTest2() {
         int result = new Logic().testMe();
     }
+
+    @Test
+    public void testSum() {
+        assertEquals(3, new Logic().sum(1,2));
+        assertEquals(3, new Logic().sum(2,1));
+        assertEquals(0, new Logic().sum(0,0));
+    }
 }

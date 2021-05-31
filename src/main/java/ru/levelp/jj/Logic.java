@@ -4,4 +4,7 @@ public class Logic {
     public int testMe() {
         return 777;
     }
+    public int sum(int a, int b) {
+        return  a + b;
+    }
 }

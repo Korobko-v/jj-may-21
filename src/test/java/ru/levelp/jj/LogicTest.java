@@ -32,5 +32,7 @@ public class LogicTest {
         assertEquals(12, new Logic().multiply(3,4));
         assertEquals(100, new Logic().multiply(20,5));
         assertEquals(25, new Logic().multiply(5, 5));
+        assertEquals(-25, new Logic().multiply(-5, 5));
+
     }
 }

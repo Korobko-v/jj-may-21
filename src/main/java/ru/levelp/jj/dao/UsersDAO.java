@@ -73,6 +73,10 @@ public class UsersDAO {
 
         return manager.createQuery(query).getResultList();
 
+    }
 
+    public int count() {
+        return manager.createQuery("select count (u) from User u", Number.class)
+                .getSingleResult().intValue();
     }
 }

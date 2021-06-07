@@ -101,4 +101,13 @@ public class UsersDAOTest {
     public void testSortedByWrongColumn() {
         users.findAllSortedBy("-- wrong column name");
     }
+
+    @Test
+    public void testCount() {
+        assertEquals(0, users.count());
+
+        users.create("1", "1");
+
+        assertEquals(1, users.count());
+    }
 }

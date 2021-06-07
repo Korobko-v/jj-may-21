@@ -4,6 +4,9 @@ import ru.levelp.jj.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class UsersDAO {
@@ -58,5 +61,18 @@ public class UsersDAO {
         return manager.createQuery("select u from User u where u.group.name =:group_name", User.class)
                 .setParameter("group_name", groupName)
                 .getResultList();
+    }
+
+    public List<User> findAllSortedBy(String columnName) {
+        CriteriaBuilder builder = manager.getCriteriaBuilder();
+
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+
+        query.orderBy(builder.asc(root.get(columnName)));
+
+        return manager.createQuery(query).getResultList();
+
+
     }
 }

@@ -81,4 +81,24 @@ public class UsersDAOTest {
         assertEquals(Collections.singletonList(createdUser), users.findByGroupName("my_group"));
         assertEquals(Collections.emptyList(), users.findByGroupName("my_groupp"));
     }
+
+    @Test
+    public void testSortedBy() {
+        User first = users.create("login1", "pass2");
+        User second = users.create("login2", "pass1");
+
+        assertEquals(Arrays.asList(first,second), users.findAllSortedBy("login"));
+        assertEquals(Arrays.asList(second, first), users.findAllSortedBy("password"));
+
+        try {
+            users.findAllSortedBy("---fd-d-afaf");
+            fail("Sorting by non-existing column");
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSortedByWrongColumn() {
+        users.findAllSortedBy("-- wrong column name");
+    }
 }

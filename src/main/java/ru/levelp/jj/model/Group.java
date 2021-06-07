@@ -18,6 +18,13 @@ public class Group {
 //    inverseJoinColumns = @JoinColumn(name = "users_fk"))
     private List<User> users;
 
+    public Group() {
+    }
+
+    public Group(String name) {
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }

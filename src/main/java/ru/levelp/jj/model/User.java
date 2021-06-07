@@ -43,4 +43,20 @@ public class User {
     public Group getGroup() {
         return group;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
 }

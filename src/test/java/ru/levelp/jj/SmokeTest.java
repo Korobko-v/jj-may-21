@@ -1,6 +1,5 @@
 package ru.levelp.jj;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,6 @@ import ru.levelp.jj.configs.AppConfig;
 import ru.levelp.jj.model.User;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -20,24 +17,22 @@ import static org.junit.Assert.assertNotNull;
 @ContextConfiguration(classes = AppConfig.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class SmokeTest {
-
     @Autowired
     private EntityManager entityManager;
 
     @Test
     public void createUserTest() {
-
         User user = new User("test", "pass");
         entityManager.getTransaction().begin();
         entityManager.persist(user);
         entityManager.getTransaction().commit();
-        User foundUser = entityManager.find(User.class, 1);
 
-        User foundByQuery =  entityManager.createQuery("select u from User u where u.id =:id", User.class)
+        User foundUser = entityManager.find(User.class, user.getId());
+        assertNotNull(foundUser);
+
+        User foundByQuery = entityManager.createQuery("select u from User u where u.id = :id", User.class)
                 .setParameter("id", user.getId())
                 .getSingleResult();
-
         assertNotNull(foundByQuery);
-        entityManager.close();
     }
 }

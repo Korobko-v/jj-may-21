@@ -13,19 +13,17 @@ import java.util.List;
 
 @Repository
 public class UsersDAO {
-
     @Autowired
     private EntityManager manager;
 
     public User create(String login, String password) {
         User user = new User(login, password);
-        manager.getTransaction().begin();
 
+        manager.getTransaction().begin();
         try {
             manager.persist(user);
             manager.getTransaction().commit();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             manager.getTransaction().rollback();
             throw e;
         }
@@ -37,20 +35,9 @@ public class UsersDAO {
         return manager.find(User.class, id);
     }
 
-    public User findByLogin (String login) {
+    public User findByLogin(String login) {
         try {
-            return manager.createQuery("select u from User u where u.login =:login_to_search", User.class)
-                     .setParameter("login_to_search", login)
-                     .getSingleResult();
-        } catch (NoResultException notFound) {
-            return null;
-        }
-    }
-    public User findByLoginAndPassword(String login, String password) {
-        try {
-            return manager.createQuery("select u from User u where u.login =:login_to_search " +
-                    "and u.password =:pass", User.class)
-                    .setParameter("pass", password)
+            return manager.createQuery("select u from User u where u.login = :login_to_search", User.class)
                     .setParameter("login_to_search", login)
                     .getSingleResult();
         } catch (NoResultException notFound) {
@@ -58,10 +45,26 @@ public class UsersDAO {
         }
     }
 
+    public User findByLoginAndPassword(String login, String password) {
+        try {
+            return manager.createQuery("select u from User u where " +
+                    "u.login = :login_to_search and u.password = :pass", User.class)
+                    .setParameter("login_to_search", login)
+                    .setParameter("pass", password)
+                    .getSingleResult();
+        } catch (NoResultException notFound) {
+            return null;
+        }
+    }
+
     public List<User> findByGroupName(String groupName) {
-        return manager.createQuery("select u from User u where u.group.name =:group_name", User.class)
-                .setParameter("group_name", groupName)
+        return manager.createQuery("select u from User u where u.group.name = :groupName", User.class)
+                .setParameter("groupName", groupName)
                 .getResultList();
+    }
+
+    public int count() {
+        return manager.createQuery("select count(u) from User u", Number.class).getSingleResult().intValue();
     }
 
     public List<User> findAllSortedBy(String columnName) {
@@ -73,11 +76,5 @@ public class UsersDAO {
         query.orderBy(builder.asc(root.get(columnName)));
 
         return manager.createQuery(query).getResultList();
-
-    }
-
-    public int count() {
-        return manager.createQuery("select count (u) from User u", Number.class)
-                .getSingleResult().intValue();
     }
 }

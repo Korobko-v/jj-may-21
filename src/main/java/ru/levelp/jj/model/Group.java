@@ -8,7 +8,7 @@ import java.util.List;
 @NamedQueries(
         @NamedQuery(
                 name = "findByName",
-                query = "select g from Group g where g.name =:groupName"
+                query = "select g from Group g where g.name = :groupName"
         )
 )
 public class Group {
@@ -22,14 +22,15 @@ public class Group {
     @OneToMany(mappedBy = "group")
 //    @JoinTable(name = "users_to_groups",
 //            joinColumns = @JoinColumn(name = "groups_fk"),
-//    inverseJoinColumns = @JoinColumn(name = "users_fk"))
+//            inverseJoinColumns = @JoinColumn(name = "users_fk")
+//    )
     private List<User> users;
-
-    public Group() {
-    }
 
     public Group(String name) {
         this.name = name;
+    }
+
+    public Group() {
     }
 
     public int getId() {

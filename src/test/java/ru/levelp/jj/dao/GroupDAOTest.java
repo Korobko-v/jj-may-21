@@ -12,7 +12,6 @@ import ru.levelp.jj.model.Group;
 import ru.levelp.jj.model.User;
 
 import javax.persistence.EntityManager;
-
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -22,14 +21,14 @@ import static org.junit.Assert.*;
 @ContextConfiguration(classes = TestConfig.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class GroupDAOTest {
-
     @Autowired
     private EntityManager manager;
+
     @Autowired
     private GroupDAO groups;
+
     @Autowired
     private UsersDAO users;
-
 
     @Test
     public void create() {
@@ -64,7 +63,5 @@ public class GroupDAOTest {
 
         assertEquals(Collections.singletonList(big), groups.findBigGroups(2));
         assertEquals(Arrays.asList(big, small), groups.findBigGroups(1));
-
-
     }
 }

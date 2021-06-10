@@ -13,6 +13,7 @@
         <maven.compiler.target>14</maven.compiler.target>
 
         <hibernate.version>5.5.0.Final</hibernate.version>
+        <spring.version>5.3.8</spring.version>
     </properties>
 
 
@@ -39,6 +40,25 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+
+
     </dependencies>
 
 </project>

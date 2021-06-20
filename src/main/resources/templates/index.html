@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<p>
+    <span th:if="${userSession.loggedIn}"
+          th:text="'Здравствуйте, ' + ${userSession.login}"></span>
+    <a href="/logout" th:if="${userSession.loggedIn}">Выход</a>
+
+    <a href="/login" th:if="${not userSession.loggedIn}">Вход</a>
+    <a href="/register" th:if="${not userSession.loggedIn}">Регистрация</a>
+    <a href="/transactions/generate">Сгенерировать транзакции</a>
+</p>
+
+<table>
+    <tbody th:if="${not #lists.isEmpty(lastTransactions)}">
+    <th:block th:each="tx : ${lastTransactions}">
+        <tr>
+            <td th:text="${tx.time}"></td>
+            <td th:text="${tx.amount}"></td>
+            <td th:text="${tx.sender.login}"></td>
+            <td th:text="${tx.recipient.login}"></td>
+        </tr>
+    </th:block>
+    </tbody>
+    <tbody th:if="${#lists.isEmpty(lastTransactions)}">
+    <tr>
+        <td>No transactions found.</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,10 +1,9 @@
 package tests.ru.levelp.jj;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -16,9 +15,10 @@ import ru.levelp.jj.model.User;
 
 import java.util.Date;
 
-import static org.junit.Assert.*;
+import static org.springframework.test.util.AssertionErrors.fail;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+
+@SpringBootTest
 @ContextConfiguration(classes = TestConfig.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class TransactionsDAOTest {
